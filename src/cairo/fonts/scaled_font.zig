@@ -194,9 +194,9 @@ pub const ScaledFont = opaque {
         clusters: *[]TextCluster,
         cluster_flags: *TextCluster.Flags,
     ) CairoError!void {
-        var glyph_ptr: [*c][*c]Glyph = @ptrCast(@alignCast(glyphs));
+        const glyph_ptr: [*c][*c]Glyph = @ptrCast(@alignCast(glyphs));
         var glyphs_num: c_int = @intCast(glyphs.len);
-        var cluster_ptr: [*c][*c]TextCluster = @ptrCast(@alignCast(clusters));
+        const cluster_ptr: [*c][*c]TextCluster = @ptrCast(@alignCast(clusters));
         var clusters_num: c_int = @intCast(clusters.len);
         try c.cairo_scaled_font_text_to_glyphs(
             self,
