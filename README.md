@@ -4,7 +4,7 @@ An attempt to make a binding for the popular [cairo](https://gitlab.freedesktop.
 
 Many thanks to [jackdbd](https://github.com/jackdbd) for his [implementation](https://github.com/jackdbd/zig-cairo) of similar binding.
 
-Zig version is 0.11.0.
+Zig version is 0.12.0.
 
 ## Quick start
 
@@ -101,7 +101,7 @@ Since we are linking libc anyway, I just interject some pointer counting in `cre
 
 We have a C object, but what we want is a native one. Popular pattern: pointer to C object is stored as a field of the native struct/class and passed under the hood to C functions. That's fine, but can we do better?
 
-Thanks to Zig's easy C interop, in **giza** there is no such pattern. All C objects behave like native ones. What are advantages and should you care? Let's see. 
+Thanks to Zig's easy C interop, in **giza** there is no such pattern. All C objects behave like native ones. What are advantages and should you care? Let's see.
 
 Every function in **giza**, that returns object with `.status()` method **and** could set it into an error state, checks its status and raises error immediately. It's not always the intended behavoir: **cairo** safely allows errors to propagate in these cases, plus it's overhead.
 

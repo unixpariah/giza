@@ -78,8 +78,8 @@ fn miniSvgRender(shape: *const MiniSvg, cr: *cairo.Context, do_path: bool) !void
 
 fn miniSvgShapeRenderer(cr: *cairo.Context, attr: *pango.AttrShape, do_path: c_int, _: ?*anyopaque) callconv(.C) void {
     const shape: *MiniSvg = @alignCast(@ptrCast(attr.data.?));
-    var scale_x = @as(f64, @floatFromInt(attr.ink_rect.width)) / (pango.SCALE * shape.width);
-    var scale_y = @as(f64, @floatFromInt(attr.ink_rect.height)) / (pango.SCALE * shape.height);
+    const scale_x = @as(f64, @floatFromInt(attr.ink_rect.width)) / (pango.SCALE * shape.width);
+    const scale_y = @as(f64, @floatFromInt(attr.ink_rect.height)) / (pango.SCALE * shape.height);
     cr.relMoveTo(
         @as(f64, @floatFromInt(attr.ink_rect.x)) / pango.SCALE,
         @as(f64, @floatFromInt(attr.ink_rect.y)) / pango.SCALE,

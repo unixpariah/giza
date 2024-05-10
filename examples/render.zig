@@ -33,7 +33,7 @@ pub fn testImage(cr: *cairo.Context, width: usize, height: usize) void {
     const zig_motto = "all your codebase are belong to us";
     cr.selectFontFace("Georgia", .Normal, .Bold);
     cr.setFontSize(24.0);
-    var te = cr.textExtents(zig_motto);
+    const te = cr.textExtents(zig_motto);
     cr.moveTo(w / 2 - te.width / 2 - te.x_bearing, h / 2 - te.height / 2 - te.y_bearing);
     cr.setSourceRgb(0.0, 0.0, 1.0);
     cr.showText(zig_motto);

@@ -225,7 +225,7 @@ const ParametrizedPath = struct {
 // walk straight for a distance of Y".
 fn pointOnPath(param: *ParametrizedPath, x: *f64, y: *f64) void {
     var ratio: f64 = undefined;
-    var the_y: f64 = y.*;
+    const the_y: f64 = y.*;
     var the_x: f64 = x.*;
     var dx: f64 = undefined;
     var dy: f64 = undefined;
