@@ -4,14 +4,23 @@ An attempt to make a binding for the popular [cairo](https://gitlab.freedesktop.
 
 Many thanks to [jackdbd](https://github.com/jackdbd) for his [implementation](https://github.com/jackdbd/zig-cairo) of similar binding.
 
-Zig version is 0.12.0.
+Zig version is 0.11.0.
 
 ## Quick start
 
-1. Fetch and save giza dependency as follows:
+1. Add giza as a dependency in your build.zig.zon as follows:
 
     ```diff
-    zig fetch --save https://github.com/unixpariah/giza/archive/zig-0.12.0.tar.gz
+    .{
+        .name = "your-project",
+        .version = "1.0.0",
+        .dependencies = .{
+    +       .giza = .{
+    +           .url = "https://github.com/koenigskraut/giza/archive/refs/tags/0.1.0.tar.gz",
+    +           .hash = "12202e1b6ae20694324cef241beacaa745ee9e2611cda002830bb0ee681791970ffd",
+    +       },
+        },
+    }
     ```
 
 2. In your build.zig add giza as a dependency and attach its modules to your project:
@@ -36,9 +45,9 @@ Zig version is 0.12.0.
             .target = target,
             .optimize = optimize,
         });
-    +   exe.root_module.addImport("cairo", cairo_module);
-    +   exe.root_module.addImport("pango", pango_module);
-    +   exe.root_module.addImport("pangocairo", pangocairo_module);
+    +   exe.addModule("cairo", cairo_module);
+    +   exe.addModule("pango", pango_module);
+    +   exe.addModule("pangocairo", pangocairo_module);
     +   exe.linkSystemLibrary("pangocairo"); // if you need both cairo and pango, use this
         exe.install();
 
@@ -92,7 +101,7 @@ Since we are linking libc anyway, I just interject some pointer counting in `cre
 
 We have a C object, but what we want is a native one. Popular pattern: pointer to C object is stored as a field of the native struct/class and passed under the hood to C functions. That's fine, but can we do better?
 
-Thanks to Zig's easy C interop, in **giza** there is no such pattern. All C objects behave like native ones. What are advantages and should you care? Let's see.
+Thanks to Zig's easy C interop, in **giza** there is no such pattern. All C objects behave like native ones. What are advantages and should you care? Let's see. 
 
 Every function in **giza**, that returns object with `.status()` method **and** could set it into an error state, checks its status and raises error immediately. It's not always the intended behavoir: **cairo** safely allows errors to propagate in these cases, plus it's overhead.
 
