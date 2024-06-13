@@ -53,17 +53,17 @@ pub fn build(b: *std.Build) void {
     opts.addOption(bool, "no-pango", b.option(bool, "no-pango", "disable pango support") orelse false);
     const opts_module = opts.createModule();
 
-    const safety_module = b.addModule("safety", .{ .root_source_file = .{ .path = "src/safety.zig" } });
+    const safety_module = b.addModule("safety", .{ .root_source_file = b.path("src/safety.zig") });
 
     var cairo_module = b.addModule("cairo", .{
-        .root_source_file = .{ .path = "src/cairo.zig" },
+        .root_source_file = b.path("src/cairo.zig"),
         .imports = &.{
             .{ .name = "build_options", .module = opts_module },
             .{ .name = "safety", .module = safety_module },
         },
     });
     var pango_module = b.addModule("pango", .{
-        .root_source_file = .{ .path = "src/pango.zig" },
+        .root_source_file = b.path("src/pango.zig"),
         .imports = &.{
             .{ .name = "build_options", .module = opts_module },
             .{ .name = "cairo", .module = cairo_module },
@@ -71,7 +71,7 @@ pub fn build(b: *std.Build) void {
         },
     });
     const pangocairo_module = b.addModule("pangocairo", .{
-        .root_source_file = .{ .path = "src/pangocairo.zig" },
+        .root_source_file = b.path("src/pangocairo.zig"),
         .imports = &.{
             .{ .name = "build_options", .module = opts_module },
             .{ .name = "cairo", .module = cairo_module },
@@ -86,7 +86,7 @@ pub fn build(b: *std.Build) void {
     inline for (EXAMPLES) |name| {
         const example = b.addExecutable(.{
             .name = name,
-            .root_source_file = .{ .path = "examples" ++ std.fs.path.sep_str ++ name ++ ".zig" },
+            .root_source_file = b.path("examples" ++ std.fs.path.sep_str ++ name ++ ".zig"),
             .target = target,
             .optimize = optimize,
             .link_libc = true,

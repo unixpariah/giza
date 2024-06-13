@@ -4,14 +4,14 @@ An attempt to make a binding for the popular [cairo](https://gitlab.freedesktop.
 
 Many thanks to [jackdbd](https://github.com/jackdbd) for his [implementation](https://github.com/jackdbd/zig-cairo) of similar binding.
 
-Zig version is 0.12.0.
+Zig version is 0.13.0.
 
 ## Quick start
 
 1. Fetch and save giza dependency as follows:
 
     ```diff
-    zig fetch --save https://github.com/unixpariah/giza/archive/zig-0.12.0.tar.gz
+    zig fetch --save https://github.com/unixpariah/giza/archive/zig-0.13.0.tar.gz
     ```
 
 2. In your build.zig add giza as a dependency and attach its modules to your project:
@@ -32,7 +32,7 @@ Zig version is 0.12.0.
 
         const exe = b.addExecutable(.{
             .name = "test",
-            .root_source_file = .{ .path = "src/main.zig" },
+            .root_source_file = b.path("src/main.zig"),
             .target = target,
             .optimize = optimize,
         });
