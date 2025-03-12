@@ -1,5 +1,6 @@
 .{
-    .name = "giza",
+    .name = .giza,
+    .fingerprint = 0x2fd620bbc2b0643c,
     .version = "0.1.0",
     .dependencies = .{},
     .paths = .{""},

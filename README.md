@@ -11,7 +11,7 @@ Zig version is 0.13.0.
 1. Fetch and save giza dependency as follows:
 
     ```diff
-    zig fetch --save https://github.com/unixpariah/giza/archive/zig-0.13.0.tar.gz
+    zig fetch --save git+https://github.com/unixpariah/giza
     ```
 
 2. In your build.zig add giza as a dependency and attach its modules to your project:

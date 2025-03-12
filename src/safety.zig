@@ -133,7 +133,7 @@ pub export fn detectLeaks() void {
         writer.print("[giza] (err): Leak detected! {s}@{x} leaked:\n", .{ li.type_name, @intFromPtr(li.ptr) }) catch |err| {
             writer.print("Unable to print stack trace: {s}\n", .{@errorName(err)}) catch return;
         };
-        std.debug.writeStackTrace(li.st, writer, arena.?.allocator(), debug_info, tty_config.?) catch |err| {
+        std.debug.writeStackTrace(li.st, writer, debug_info, tty_config.?) catch |err| {
             writer.print("Unable to print stack trace: {s}\n", .{@errorName(err)}) catch return;
         };
         writer.print("\n", .{}) catch unreachable;
